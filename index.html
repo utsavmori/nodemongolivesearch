@@ -1,0 +1,44 @@
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+<script type="text/javascript">
+function populate(key){
+
+if(key!=null){
+	$.ajax({
+    type:"post",
+    url:"/index",
+    dataType: 'json',
+        data: JSON.stringify({"name": key}),
+        contentType: 'application/json',
+        success: function(data){
+          
+            var options = '';
+           
+          for (var i = 0; i < data.jsa.length; i++) {
+            var counter = data.jsa[i];
+          options += '<option value="'+counter.name+'" />';
+
+            }
+            document.getElementById('namedata').innerHTML = options;      
+
+        }
+    });
+}
+	
+}
+
+	</script>
+</head>
+<body>
+<form method="POST" action="anypage"><!-- -->
+Firstname:<input type="text" name="name" id="name1" onkeyup="populate(this.value)" list="namedata" />
+<datalist id="namedata">
+	
+</datalist>
+<br>
+Lastname:<input type="text" name="lastname"><br>
+	<input type="submit" name="">
+</form>
+</body>
+</html>
